@@ -11,11 +11,20 @@ class Menu
         "5 = Exit"
     };
     
-    public void ProcessMenu()
+
+    /* ProcessMenu displays the menu and gets a valid user selection */
+    public int ProcessMenu()
     {
-        foreach (string menuItem in _menuString)
+
+        int userSelection = 0;
+        do
         {
-            Console.WriteLine(menuItem);
-        }
+            foreach (string menuItem in _menuString)
+            {
+                Console.WriteLine(menuItem);
+            }
+            userSelection = int.TryParse(Console.ReadLine(), out userSelection) ? userSelection : 0;
+        } while (userSelection < 1 || userSelection > 5);
+        return userSelection;
     }
 }
