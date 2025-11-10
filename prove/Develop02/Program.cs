@@ -2,39 +2,60 @@ using System;
 
 class Program
 {
+    /* list of premade prompts for journal entries */
+    private static string[] _prompts = {
+        "What was the highlight of your day?",
+        "What was the worst part of your day?",
+        "What did you do today?",
+        "Did you face any challenges today? How did you handle them?",
+    };
+
     static void Main(string[] args)
     {
-        Menu journalMenu = new Menu();
+        Menu menu = new Menu();
+        Journal journal = new Journal();
+        Random rand = new Random();
 
-        int userSelection;
+        bool running = true;
 
-        bool done = false;
-
-        do
+        while (running)
         {
-            userSelection = journalMenu.ProcessMenu();
+            int choice = menu.ProcessMenu();
 
-            switch (userSelection)
+            if (choice == 1)
             {
-                case 1:
-                    Console.WriteLine("Creating new Journal Entry.");
-                    break;
-                case 2:
-                    Console.WriteLine("Displaying Journal Entries.");
-                    break;
-                case 3:
-                    Console.WriteLine("Saving Journal Entries to a File.");
-                    break;
-                case 4:
-                    Console.WriteLine("Reading Journal Entries from a File.");
-                    break;
-                case 5:
-                    Console.WriteLine("Exiting.");
-                    done = true;
-                    break;
-                }
-            } while (!done);
+                Console.WriteLine("\nCreating a new journal entry...");
+                string prompt = _prompts[rand.Next(_prompts.Length)];
+                Console.WriteLine("Prompt: " + prompt);
+                Console.Write("Your response: ");
+                string response = Console.ReadLine();
 
+                Entry entry = new Entry();
+                entry.CreateEntry(DateTime.Now.ToString("yyyy-MM-dd"), prompt, response);
+                journal.AddEntry(entry);
+
+                Console.WriteLine("Entry saved in memory.\n");
+            }
+            else if (choice == 2)
+            {
+                Console.WriteLine("\nDisplaying journal entries...\n");
+                journal.Display();
+            }
+            else if (choice == 3)
+            {
+                Console.WriteLine("\nSaving journal entries to file...");
+                journal.SaveToFile();
+            }
+            else if (choice == 4)
+            {
+                Console.WriteLine("\nLoading journal entries from file...");
+                journal.ReadFromFile();
+            }
+            else if (choice == 5)
+            {
+                Console.WriteLine("Goodbye!");
+                running = false;
+            }
+        }
     }
-
 }

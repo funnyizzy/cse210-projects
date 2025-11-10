@@ -1,4 +1,3 @@
-
 class Menu
 {
     public string[] _menuString = {
@@ -11,11 +10,8 @@ class Menu
         "5 = Exit"
     };
     
-
-    /* ProcessMenu displays the menu and gets a valid user selection */
     public int ProcessMenu()
     {
-
         int userSelection = 0;
         do
         {
