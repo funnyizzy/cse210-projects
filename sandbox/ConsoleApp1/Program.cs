@@ -2,6 +2,11 @@
 {
     static void Main()
     {
-        System.Console.WriteLine("Hello, World!");
+        Circle myCircle = new Circle();
+        myCircle.SetRadius(10);
+        Console.WriteLine("Circle Area: " + myCircle.GetCircleArea());
+
+        Circle myCircle2 = new Circle(100);
+        Console.WriteLine("Circle Area: " + myCircle2.GetCircleArea());
     }
 }
