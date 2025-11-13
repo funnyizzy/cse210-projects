@@ -1,3 +1,5 @@
+using System.Data.SqlTypes;
+
 class Word
 {
     private string _word;
@@ -18,8 +20,29 @@ class Word
     {
         _isHidden = true;
     }
+
+    private string GetWordString()
+    {
+
+        if (_isHidden)
+        {
+            string newString = "";
+            foreach (char c in _word)
+            {
+                newString += "_";
+            }
+            return newString;
+        }
+
+        return _word;
+    }
     public void DisplayWord()
     {
-        Console.WriteLine(_word);
+        Console.Write(LocalGetWordString());
+    }
+
+    public String LocalGetWordString()
+    {
+        return GetWordString();
     }
 }
