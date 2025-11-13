@@ -6,5 +6,11 @@ class Program
     {
         Word myWord = new Word("Hello, World!");
         myWord.DisplayWord();
+
+        myWord.HideWord();
+        if(myWord.IsHidden())
+        {
+            Console.WriteLine("word is hidden.");
+        }
     }
 }
