@@ -1,13 +1,13 @@
-using System.Data.SqlTypes;
+using System;
 
 class Word
 {
-    private string _word;
+    private string _text;
     private bool _isHidden;
 
-    public Word(string word)
+    public Word(string text)
     {
-        _word = word;
+        _text = text;
         _isHidden = false;
     }
 
@@ -16,33 +16,24 @@ class Word
         return _isHidden;
     }
 
-    public void HideWord()
+    public void Hide()
     {
         _isHidden = true;
     }
 
-    private string GetWordString()
+    public string GetDisplayText()
     {
-
         if (_isHidden)
         {
-            string newString = "";
-            foreach (char c in _word)
+            string hiddenString = "";
+            for (int i = 0; i < _text.Length; i++)
             {
-                newString += "_";
+                hiddenString += "_";
             }
-            return newString;
+
+            return hiddenString;
         }
 
-        return _word;
-    }
-    public void DisplayWord()
-    {
-        Console.Write(LocalGetWordString());
-    }
-
-    public String LocalGetWordString()
-    {
-        return GetWordString();
+        return _text;
     }
 }
