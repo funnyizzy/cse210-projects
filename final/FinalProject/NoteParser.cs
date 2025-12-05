@@ -2,7 +2,7 @@ using System;
 
 public static class NoteParser
 {
-    // Parses names like C2, Db2, Eb3, Gb4, Ab0, Bb1...
+
     public static bool TryParsePitch(string noteName, out int pitch)
     {
         pitch = 0;
@@ -11,25 +11,31 @@ public static class NoteParser
 
         noteName = noteName.Trim();
 
-        // Letter
         char letter = noteName[0];
         if ("ABCDEFG".IndexOf(letter) < 0)
             return false;
 
         int index = 1;
-        bool flat = false;
+        int accidentalOffset = 0;
 
-        // Optional 'b'
-        if (index < noteName.Length && noteName[index] == 'b')
+        if (index < noteName.Length)
         {
-            flat = true;
-            index++;
+            char acc = noteName[index];
+            if (acc == 'b')
+            {
+                accidentalOffset = -1;
+                index++;
+            }
+            else if (acc == '#')
+            {
+                accidentalOffset = 1;
+                index++;
+            }
         }
 
         if (index >= noteName.Length)
             return false;
 
-        // Remaining = octave number
         if (!int.TryParse(noteName.Substring(index), out int octave))
             return false;
 
@@ -45,10 +51,7 @@ public static class NoteParser
             _ => 0
         };
 
-        if (flat)
-        {
-            baseOffset -= 1;
-        }
+        baseOffset += accidentalOffset;
 
         pitch = octave * 12 + baseOffset;
         return true;

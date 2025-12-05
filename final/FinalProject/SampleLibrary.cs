@@ -71,7 +71,7 @@ public class SampleLibrary
             }
             catch
             {
-                // invalid soundfont → ignore
+                
             }
         }
 

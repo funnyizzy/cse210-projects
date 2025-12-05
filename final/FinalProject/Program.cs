@@ -46,7 +46,6 @@ class Program
             if (key.Key == ConsoleKey.Escape)
                 break;
 
-            // Previous soundfont
             if (key.KeyChar == '[')
             {
                 activeBank--;
@@ -59,7 +58,6 @@ class Program
                 continue;
             }
 
-            // Next soundfont
             if (key.KeyChar == ']')
             {
                 activeBank++;
@@ -72,7 +70,6 @@ class Program
                 continue;
             }
 
-            // Just play notes
             piano.HandleKey(key);
         }
 
