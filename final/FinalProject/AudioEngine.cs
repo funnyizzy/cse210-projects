@@ -7,17 +7,17 @@ public class AudioEngine : IDisposable
 {
     private WaveOutEvent _output;
     private MixingSampleProvider _mixer;
-    
-    private float _volume = 1.0f;
 
-    public float Volume
+    // Gain: 1.0 = normal, 3.0 = 3x, etc.
+    private float _gain = 1.0f;
+
+    public float Gain
     {
-        get => _volume;
+        get => _gain;
         set
         {
             if (value < 0f) value = 0f;
-            if (value > 1f) value = 1f;
-            _volume = value;
+            _gain = value;
         }
     }
 
@@ -35,7 +35,7 @@ public class AudioEngine : IDisposable
         };
 
         _output.Init(_mixer);
-        _output.Volume = 1.0f;
+        _output.Volume = 1.0f; // leave device volume at 100%
         _output.Play();
     }
 
@@ -45,13 +45,14 @@ public class AudioEngine : IDisposable
             return;
 
         var reader = new AudioFileReader(path);
-        var volumeProvider = new VolumeSampleProvider(reader.ToSampleProvider())
+        var gainProvider = new VolumeSampleProvider(reader.ToSampleProvider())
         {
-            Volume = _volume
+            Volume = _gain
         };
 
-        _mixer.AddMixerInput(volumeProvider);
+        _mixer.AddMixerInput(gainProvider);
     }
+
     public void StopAll()
     {
         _output.Stop();

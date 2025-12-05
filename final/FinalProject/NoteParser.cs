@@ -2,7 +2,6 @@ using System;
 
 public static class NoteParser
 {
-
     public static bool TryParsePitch(string noteName, out int pitch)
     {
         pitch = 0;

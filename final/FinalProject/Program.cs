@@ -24,6 +24,11 @@ class Program
         SampleLibrary current = banks[activeBank];
 
         using AudioEngine audio = new AudioEngine();
+
+        // 0–300, step of 10; 100 = normal (1.0x), 300 = 3.0x
+        VolumeSetting volume = new VolumeSetting(100);
+        audio.Gain = volume.Gain;
+
         Piano piano = new Piano(current, audio);
 
         Console.WriteLine("Loaded Soundfonts:");
@@ -32,12 +37,14 @@ class Program
 
         Console.WriteLine();
         Console.WriteLine("Controls:");
-        Console.WriteLine("  Notes        = qwerty / asdfghjkl");
+        Console.WriteLine("  Notes        = 1–0, qwerty, asdfghjkl, zxcvbnm (Shift = black keys)");
         Console.WriteLine("  Soundfont    = [ (previous) / ] (next)");
+        Console.WriteLine("  Volume       = LeftArrow (down 10) / RightArrow (up 10)");
         Console.WriteLine("  ESC          = Quit");
         Console.WriteLine();
 
         Console.WriteLine($"Bank: {current.BankName}");
+        Console.WriteLine($"Volume: {volume.Value}");
 
         while (true)
         {
@@ -45,6 +52,22 @@ class Program
 
             if (key.Key == ConsoleKey.Escape)
                 break;
+
+            if (key.Key == ConsoleKey.LeftArrow)
+            {
+                volume.Decrease();
+                audio.Gain = volume.Gain;
+                Console.WriteLine($"Volume: {volume.Value}");
+                continue;
+            }
+
+            if (key.Key == ConsoleKey.RightArrow)
+            {
+                volume.Increase();
+                audio.Gain = volume.Gain;
+                Console.WriteLine($"Volume: {volume.Value}");
+                continue;
+            }
 
             if (key.KeyChar == '[')
             {
