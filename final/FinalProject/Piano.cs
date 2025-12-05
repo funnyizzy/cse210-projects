@@ -18,6 +18,7 @@ public class Piano
         ['8'] = "C4",
         ['9'] = "D4",
         ['0'] = "E4",
+
         ['q'] = "F4",
         ['w'] = "G4",
         ['e'] = "A4",
@@ -28,6 +29,7 @@ public class Piano
         ['i'] = "F5",
         ['o'] = "G5",
         ['p'] = "A5",
+
         ['a'] = "B5",
         ['s'] = "C6",
         ['d'] = "D6",
@@ -37,6 +39,7 @@ public class Piano
         ['j'] = "A6",
         ['k'] = "B6",
         ['l'] = "C7",
+
         ['z'] = "D7",
         ['x'] = "E7",
         ['c'] = "F7",
@@ -45,6 +48,7 @@ public class Piano
         ['n'] = "B7",
         ['m'] = "C8"
     };
+
     private readonly Dictionary<char, string> _black = new()
     {
         ['1'] = "Db3",
@@ -90,7 +94,54 @@ public class Piano
 
     public void HandleKey(ConsoleKeyInfo keyInfo)
     {
-        char c = char.ToLower(keyInfo.KeyChar);
+        char layoutChar;
+
+        switch (keyInfo.Key)
+        {
+            case ConsoleKey.D1: layoutChar = '1'; break;
+            case ConsoleKey.D2: layoutChar = '2'; break;
+            case ConsoleKey.D3: layoutChar = '3'; break;
+            case ConsoleKey.D4: layoutChar = '4'; break;
+            case ConsoleKey.D5: layoutChar = '5'; break;
+            case ConsoleKey.D6: layoutChar = '6'; break;
+            case ConsoleKey.D7: layoutChar = '7'; break;
+            case ConsoleKey.D8: layoutChar = '8'; break;
+            case ConsoleKey.D9: layoutChar = '9'; break;
+            case ConsoleKey.D0: layoutChar = '0'; break;
+
+            case ConsoleKey.Q: layoutChar = 'q'; break;
+            case ConsoleKey.W: layoutChar = 'w'; break;
+            case ConsoleKey.E: layoutChar = 'e'; break;
+            case ConsoleKey.R: layoutChar = 'r'; break;
+            case ConsoleKey.T: layoutChar = 't'; break;
+            case ConsoleKey.Y: layoutChar = 'y'; break;
+            case ConsoleKey.U: layoutChar = 'u'; break;
+            case ConsoleKey.I: layoutChar = 'i'; break;
+            case ConsoleKey.O: layoutChar = 'o'; break;
+            case ConsoleKey.P: layoutChar = 'p'; break;
+
+            case ConsoleKey.A: layoutChar = 'a'; break;
+            case ConsoleKey.S: layoutChar = 's'; break;
+            case ConsoleKey.D: layoutChar = 'd'; break;
+            case ConsoleKey.F: layoutChar = 'f'; break;
+            case ConsoleKey.G: layoutChar = 'g'; break;
+            case ConsoleKey.H: layoutChar = 'h'; break;
+            case ConsoleKey.J: layoutChar = 'j'; break;
+            case ConsoleKey.K: layoutChar = 'k'; break;
+            case ConsoleKey.L: layoutChar = 'l'; break;
+
+            case ConsoleKey.Z: layoutChar = 'z'; break;
+            case ConsoleKey.X: layoutChar = 'x'; break;
+            case ConsoleKey.C: layoutChar = 'c'; break;
+            case ConsoleKey.V: layoutChar = 'v'; break;
+            case ConsoleKey.B: layoutChar = 'b'; break;
+            case ConsoleKey.N: layoutChar = 'n'; break;
+            case ConsoleKey.M: layoutChar = 'm'; break;
+
+            default:
+                layoutChar = char.ToLower(keyInfo.KeyChar);
+                break;
+        }
 
         bool isShiftDown = (keyInfo.Modifiers & ConsoleModifiers.Shift) != 0;
 
@@ -98,11 +149,11 @@ public class Piano
 
         if (isShiftDown)
         {
-            _black.TryGetValue(c, out noteName);
+            _black.TryGetValue(layoutChar, out noteName);
         }
         else
         {
-            _white.TryGetValue(c, out noteName);
+            _white.TryGetValue(layoutChar, out noteName);
         }
 
         if (noteName == null)
