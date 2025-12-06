@@ -1,9 +1,9 @@
 public class VolumeSetting
 {
-    private int _value; // 0–300
+    private int _value;
 
-    public int Value => _value;          // For display (0–300)
-    public float Gain => _value / 100f;  // 100 -> 1.0, 300 -> 3.0
+    public int Value => _value;
+    public float Gain => _value / 100f;
 
     public VolumeSetting(int start)
     {

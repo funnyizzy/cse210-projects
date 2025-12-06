@@ -8,7 +8,6 @@ public class AudioEngine : IDisposable
     private WaveOutEvent _output;
     private MixingSampleProvider _mixer;
 
-    // Gain: 1.0 = normal, 3.0 = 3x, etc.
     private float _gain = 1.0f;
 
     public float Gain
@@ -35,7 +34,7 @@ public class AudioEngine : IDisposable
         };
 
         _output.Init(_mixer);
-        _output.Volume = 1.0f; // leave device volume at 100%
+        _output.Volume = 1.0f;
         _output.Play();
     }
 

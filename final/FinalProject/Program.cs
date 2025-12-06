@@ -5,7 +5,7 @@ class Program
 {
     static void Main()
     {
-        Console.Title = "Console Piano (Level 1)";
+        Console.Title = "Console Piano";
 
         List<SampleLibrary> banks;
 
@@ -25,7 +25,6 @@ class Program
 
         using AudioEngine audio = new AudioEngine();
 
-        // 0–300, step of 10; 100 = normal (1.0x), 300 = 3.0x
         VolumeSetting volume = new VolumeSetting(100);
         audio.Gain = volume.Gain;
 
