@@ -38,7 +38,7 @@ class Program
         Console.WriteLine("Controls:");
         Console.WriteLine("  Notes        = 1–0, qwerty, asdfghjkl, zxcvbnm (Shift = black keys)");
         Console.WriteLine("  Soundfont    = [ (previous) / ] (next)");
-        Console.WriteLine("  Volume       = LeftArrow (down 10) / RightArrow (up 10)");
+        Console.WriteLine("  Volume       = LeftArrow (-) / RightArrow (+)");
         Console.WriteLine("  ESC          = Quit");
         Console.WriteLine();
 
