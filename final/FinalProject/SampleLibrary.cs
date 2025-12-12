@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-/* More  soundfonts can be found at https://github.com/gleitz/midi-js-soundfonts/tree/gh-pages/MusyngKite */
+/* More soundfonts can be found at https://github.com/gleitz/midi-js-soundfonts/tree/gh-pages/MusyngKite */
 public class SampleLibrary
 {
     private readonly Dictionary<string, SampleNote> _byName;
@@ -72,6 +72,7 @@ public class SampleLibrary
             }
             catch
             {
+                // Ignore bad banks
             }
         }
 

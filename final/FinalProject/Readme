@@ -1,0 +1,34 @@
+Console Piano:
+A console piano program written in C# using NAudio.
+The program lets the  user play piano notes through keyboard inputs and has adjust settings while program is running.
+
+Features:
+play piano notes using the keyboard
+Hold shift for black keys
+switch between multiple sound fonts
+Adjust volume, transposition, and sustain
+supports playing many notes at once
+
+Controls:
+Notes 1-0, Q-P, A-L, Z-M
+Black keys: hold shift while playing a note
+Control volume with left arrow/ right arrow
+Control tranpose with up arrow/ down arrow
+Control sustain with space bar
+Change soundfont with [ / ]
+To quit the program press esc
+
+Soundfonts:
+To add more soundfonts grab a soundfont from this repository: https://github.com/gleitz/midi-js-soundfonts/tree/gh-pages/MusyngKite
+Then add it to the sounds folder.
+
+How to run:
+Clone the repository
+make sure the sounds folder has at least one soundfont
+run the program
+
+Design:
+uses multiple classes with clear responsibilites
+Encapsulation is enforced using private fields
+Inheritance is used through a base PianoSetting class
+Polymorphism is demonstrated by overriding methods in derived setting classes

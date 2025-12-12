@@ -1,11 +1,11 @@
-public class VolumeSetting
+public class VolumeSetting : PianoSetting
 {
     private int _value;
 
     public int Value => _value;
     public float Gain => _value / 100f;
 
-    public VolumeSetting(int start)
+    public VolumeSetting(int start) : base("Volume")
     {
         _value = Clamp(start);
     }
@@ -25,5 +25,10 @@ public class VolumeSetting
         if (v < 0) return 0;
         if (v > 300) return 300;
         return v;
+    }
+
+    public override string Describe()
+    {
+        return $"{Name}: {Value}%";
     }
 }

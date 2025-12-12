@@ -5,6 +5,8 @@ public class Piano
 {
     private SampleLibrary _library;
     private readonly AudioEngine _audio;
+    private readonly TranspositionSetting _transposition;
+    private readonly SustainSetting _sustain;
 
     private readonly Dictionary<char, string> _white = new()
     {
@@ -83,10 +85,14 @@ public class Piano
         ['b'] = "Bb6"
     };
 
-    public Piano(SampleLibrary library, AudioEngine audio)
+    public Piano(SampleLibrary library, AudioEngine audio,
+                 TranspositionSetting transposition,
+                 SustainSetting sustain)
     {
         _library = library;
         _audio = audio;
+        _transposition = transposition;
+        _sustain = sustain;
     }
 
     public void SetLibrary(SampleLibrary library)
@@ -161,10 +167,26 @@ public class Piano
         if (noteName == null)
             return;
 
-        var note = _library.GetNote(noteName);
-        if (note != null)
+        SampleNote note;
+
+        if (_transposition.Offset == 0)
         {
-            _audio.PlayFile(note.Path);
+            note = _library.GetNote(noteName);
         }
+        else
+        {
+            note = _library.Transpose(noteName, _transposition.Offset);
+        }
+
+        if (note == null)
+            return;
+
+        // Sustain OFF = monophonic (no overlap)
+        if (!_sustain.IsOn)
+        {
+            _audio.StopAll();
+        }
+
+        _audio.PlayFile(note.Path);
     }
 }

@@ -1,15 +1,12 @@
-public class SustainSetting
+public class SustainSetting : PianoSetting
 {
     private bool _isOn;
 
-    public SustainSetting(bool isOn)
+    public bool IsOn => _isOn;
+
+    public SustainSetting(bool isOn) : base("Sustain")
     {
         _isOn = isOn;
-    }
-
-    public bool IsOn()
-    {
-        return _isOn;
     }
 
     public void Toggle()
@@ -25,5 +22,10 @@ public class SustainSetting
     public void Disable()
     {
         _isOn = false;
+    }
+
+    public override string Describe()
+    {
+        return $"{Name}: {(_isOn ? "On" : "Off")}";
     }
 }

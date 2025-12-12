@@ -1,15 +1,12 @@
-public class TranspositionSetting
+public class TranspositionSetting : PianoSetting
 {
     private int _semitoneOffset;
 
-    public TranspositionSetting(int semitoneOffset = 0)
+    public int Offset => _semitoneOffset;
+
+    public TranspositionSetting(int semitoneOffset = 0) : base("Transposition")
     {
         _semitoneOffset = semitoneOffset;
-    }
-
-    public int GetOffset()
-    {
-        return _semitoneOffset;
     }
 
     public void Increase()
@@ -25,5 +22,10 @@ public class TranspositionSetting
     public void Reset()
     {
         _semitoneOffset = 0;
+    }
+
+    public override string Describe()
+    {
+        return $"{Name}: {Offset} semitones";
     }
 }

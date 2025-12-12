@@ -26,9 +26,30 @@ class Program
         using AudioEngine audio = new AudioEngine();
 
         VolumeSetting volume = new VolumeSetting(100);
+        SustainSetting sustain = new SustainSetting(true);     // start with sustain ON
+        TranspositionSetting transposition = new TranspositionSetting(0);
+
+        List<PianoSetting> settings = new()
+        {
+            volume,
+            sustain,
+            transposition
+        };
+
         audio.Gain = volume.Gain;
 
-        Piano piano = new Piano(current, audio);
+        Piano piano = new Piano(current, audio, transposition, sustain);
+
+        void PrintSettings()
+        {
+            Console.WriteLine();
+            Console.WriteLine($"Bank: {current.BankName}");
+            foreach (var setting in settings)
+            {
+                Console.WriteLine(setting.Describe());
+            }
+            Console.WriteLine();
+        }
 
         Console.WriteLine("Loaded Soundfonts:");
         for (int i = 0; i < banks.Count; i++)
@@ -39,11 +60,12 @@ class Program
         Console.WriteLine("  Notes        = 1–0, qwerty, asdfghjkl, zxcvbnm (Shift = black keys)");
         Console.WriteLine("  Soundfont    = [ (previous) / ] (next)");
         Console.WriteLine("  Volume       = LeftArrow (-) / RightArrow (+)");
+        Console.WriteLine("  Transpose    = UpArrow (+1 semitone) / DownArrow (-1 semitone)");
+        Console.WriteLine("  Sustain      = Spacebar (toggle sustain on/off)");
         Console.WriteLine("  ESC          = Quit");
         Console.WriteLine();
 
-        Console.WriteLine($"Bank: {current.BankName}");
-        Console.WriteLine($"Volume: {volume.Value}");
+        PrintSettings();
 
         while (true)
         {
@@ -56,7 +78,7 @@ class Program
             {
                 volume.Decrease();
                 audio.Gain = volume.Gain;
-                Console.WriteLine($"Volume: {volume.Value}");
+                PrintSettings();
                 continue;
             }
 
@@ -64,7 +86,28 @@ class Program
             {
                 volume.Increase();
                 audio.Gain = volume.Gain;
-                Console.WriteLine($"Volume: {volume.Value}");
+                PrintSettings();
+                continue;
+            }
+
+            if (key.Key == ConsoleKey.UpArrow)
+            {
+                transposition.Increase();
+                PrintSettings();
+                continue;
+            }
+
+            if (key.Key == ConsoleKey.DownArrow)
+            {
+                transposition.Decrease();
+                PrintSettings();
+                continue;
+            }
+
+            if (key.Key == ConsoleKey.Spacebar)
+            {
+                sustain.Toggle();
+                PrintSettings();
                 continue;
             }
 
@@ -76,7 +119,7 @@ class Program
 
                 current = banks[activeBank];
                 piano.SetLibrary(current);
-                Console.WriteLine($"Switched to soundfont: {current.BankName}");
+                PrintSettings();
                 continue;
             }
 
@@ -88,7 +131,7 @@ class Program
 
                 current = banks[activeBank];
                 piano.SetLibrary(current);
-                Console.WriteLine($"Switched to soundfont: {current.BankName}");
+                PrintSettings();
                 continue;
             }
 
