@@ -26,7 +26,7 @@ class Program
         using AudioEngine audio = new AudioEngine();
 
         VolumeSetting volume = new VolumeSetting(100);
-        SustainSetting sustain = new SustainSetting(true);     // start with sustain ON
+        SustainSetting sustain = new SustainSetting(true);
         TranspositionSetting transposition = new TranspositionSetting(0);
 
         List<PianoSetting> settings = new()
